@@ -6,7 +6,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import "./index.scss";
 
 const Images = () => {
-  const { images, fetchImages } = useContext(AppContext);
+  const { images, fetchImages, setIsShow, setSelectedImage } =
+    useContext(AppContext);
+
+  const handleOpenModal = (image) => {
+    setIsShow(true);
+    setSelectedImage(image);
+  };
 
   return (
     <>
@@ -18,7 +24,11 @@ const Images = () => {
         loader={<Loading />}
       >
         {images.map((image) => (
-          <div className="images" key={image.id}>
+          <div
+            className="images"
+            key={image.id}
+            onClick={() => handleOpenModal(image)}
+          >
             <ImageItem item={image} />
           </div>
         ))}

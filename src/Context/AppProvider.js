@@ -5,30 +5,36 @@ export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [isShow, setIsShow] = useState(false);
+  const [selectedImage, setSelectedImage] = useState({});
 
   useEffect(() => {
     fetchImages();
   }, []);
 
   const fetchImages = () => {
-    setIsLoading(true);
     const apiRoot = "https://api.unsplash.com";
     const accessKey = process.env.REACT_APP_ACCESS_KEY;
     axios
-      .get(`${apiRoot}/photos?client_id=${accessKey}&page=${page}&per_page=20`)
-      .then((res) => {
-        setImages([...images, ...res.data]);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .get(`${apiRoot}/photos?client_id=${accessKey}&page=${page}`)
+      .then((res) => setImages([...images, ...res.data]))
+      .catch((error) => console.log(error));
+
     setPage((prev) => prev + 1);
   };
 
   return (
-    <AppContext.Provider value={{ images, isLoading, fetchImages }}>
+    <AppContext.Provider
+      value={{
+        images,
+        fetchImages,
+        isShow,
+        setIsShow,
+        selectedImage,
+        setSelectedImage,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

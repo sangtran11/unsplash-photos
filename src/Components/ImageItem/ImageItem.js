@@ -4,7 +4,6 @@ import "./index.scss";
 
 const ImageItem = ({ item }) => {
   const { urls, description } = item;
-  console.log("item", item);
 
   return <Image className="image" src={urls.regular} alt={description} />;
 };
