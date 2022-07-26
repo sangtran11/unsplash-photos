@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../Context/AppProvider";
-import ImageItem from "../ImageItem/ImageItem";
+// import ImageItem from "../ImageItem/ImageItem";
 import Loading from "../Loading/Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Image } from "react-bootstrap";
 import "./index.scss";
 
 const Images = () => {
@@ -23,13 +24,17 @@ const Images = () => {
         next={fetchImages}
         loader={<Loading />}
       >
-        {images.map((image) => (
+        {images.map((image, index) => (
           <div
             className="images"
-            key={image.id}
+            key={index}
             onClick={() => handleOpenModal(image)}
           >
-            <ImageItem item={image} />
+            <Image
+              className="image"
+              src={image.urls.regular}
+              alt={image.description}
+            />
           </div>
         ))}
       </InfiniteScroll>

@@ -17,12 +17,17 @@ const AppProvider = ({ children }) => {
     const apiRoot = "https://api.unsplash.com";
     const accessKey = process.env.REACT_APP_ACCESS_KEY;
     axios
-      .get(`${apiRoot}/photos?client_id=${accessKey}&page=${page}`)
-      .then((res) => setImages([...images, ...res.data]))
+      .get(`${apiRoot}/photos?client_id=${accessKey}&page=${page}&per_page=10`)
+      .then((res) => {
+        console.log("aa", res);
+        setImages([...images, ...res.data]);
+      })
       .catch((error) => console.log(error));
 
     setPage((prev) => prev + 1);
   };
+
+  console.log("images", images);
 
   return (
     <AppContext.Provider

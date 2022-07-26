@@ -1,7 +1,6 @@
 import React, { useContext, useState, useMemo } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Row, Col, Container, Image } from "react-bootstrap";
 import { AppContext } from "../../Context/AppProvider";
-import ImageItem from "../ImageItem/ImageItem";
 import "./index.scss";
 
 const ImageModal = () => {
@@ -12,8 +11,7 @@ const ImageModal = () => {
 
   const customImages = useMemo(() => {
     const result = images.filter((item) => item.id !== selectedImage.id);
-    result.unshift(selectedImage);
-    return result;
+    return [selectedImage, ...result];
   }, [selectedImageId]);
 
   const nextSlide = () => {
@@ -24,6 +22,12 @@ const ImageModal = () => {
     setCurrentIndex(currentIndex === 0 ? maxLength - 1 : currentIndex - 1);
   };
 
+  console.log("index", currentIndex);
+  // console.log("customImages", customImages[currentIndex]);
+  console.log("customImages", customImages);
+  // console.log("selectedImage", images[currentIndex]);
+  console.log("images: ", images);
+
   const handleClose = () => {
     setIsShow(false);
     setCurrentIndex(0);
@@ -32,31 +36,60 @@ const ImageModal = () => {
   return (
     <Modal show={isShow} backdrop="static" keyboard={false} fullscreen={true}>
       <Modal.Body>
-        <div className="icon-close" onClick={handleClose}>
-          <i className="bi bi-x-lg"></i>
-        </div>
-        <div className="slider">
-          <div className="arrow left-arrow" onClick={prevSlide}>
-            <i className="bi bi-arrow-left"></i>
+        <Container fluid className="p-0">
+          <div className="icon-close" onClick={handleClose}>
+            <i className="bi bi-x-lg"></i>
           </div>
-          <div className="arrow right-arrow" onClick={nextSlide}>
-            <i className="bi bi-arrow-right"></i>
-          </div>
-          <div className="space-slider">
-            {customImages.map((image, index) => {
-              return (
-                <div
-                  className={index === currentIndex ? "slide active" : "slide"}
-                  key={`${image.id}-${index}`}
-                >
-                  {index === currentIndex && (
-                    <ImageItem item={image} key={image.id} />
-                  )}
+          <Row className="h-100">
+            <Col xs={12} lg={12}>
+              <div className="slider">
+                <div className="space-slider">
+                  <div className="arrow left-arrow" onClick={prevSlide}>
+                    <i className="bi bi-arrow-left"></i>
+                  </div>
+                  <div className="arrow right-arrow" onClick={nextSlide}>
+                    <i className="bi bi-arrow-right"></i>
+                  </div>
+                  {customImages.map((image, index) => {
+                    return (
+                      <div
+                        className={
+                          index === currentIndex ? "slide active" : "slide"
+                        }
+                        key={index}
+                      >
+                        {index === currentIndex && (
+                          <Image
+                            className="image"
+                            src={image?.urls?.regular}
+                            alt={image?.description}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
-        </div>
+              </div>
+            </Col>
+            <Col xs={12} lg={12}>
+              <div className="information-section">
+                <span>
+                  <b>Author</b>: {customImages[currentIndex]?.user?.name}
+                  <br />
+                </span>
+                <span>
+                  <b>Location</b>:{" "}
+                  {customImages[currentIndex]?.user?.location || "N/A"}
+                  <br />
+                </span>
+                <span>
+                  <b>Bio</b>: {customImages[currentIndex]?.user?.bio}
+                  <br />
+                </span>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </Modal.Body>
     </Modal>
   );
