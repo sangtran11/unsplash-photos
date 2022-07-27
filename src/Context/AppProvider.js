@@ -18,10 +18,7 @@ const AppProvider = ({ children }) => {
     const accessKey = process.env.REACT_APP_ACCESS_KEY;
     axios
       .get(`${apiRoot}/photos?client_id=${accessKey}&page=${page}&per_page=10`)
-      .then((res) => {
-        console.log("aa", res);
-        setImages([...images, ...res.data]);
-      })
+      .then((res) => setImages([...images, ...res.data]))
       .catch((error) => console.log(error));
 
     setPage((prev) => prev + 1);
