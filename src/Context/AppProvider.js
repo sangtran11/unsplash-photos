@@ -24,8 +24,6 @@ const AppProvider = ({ children }) => {
     setPage((prev) => prev + 1);
   };
 
-  console.log("images", images);
-
   return (
     <AppContext.Provider
       value={{

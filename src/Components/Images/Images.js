@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../Context/AppProvider";
-// import ImageItem from "../ImageItem/ImageItem";
 import Loading from "../Loading/Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Image } from "react-bootstrap";

@@ -45,16 +45,18 @@ const ImageModal = () => {
             <Col className="information-section mt-3 mb-5" xs={12} lg={12}>
               <div>
                 <span>
-                  <b>Author</b>: {customImages[currentIndex]?.user?.name}
+                  <b>Author: </b>
+                  {customImages[currentIndex]?.user?.name || "..."}
                   <br />
                 </span>
                 <span>
-                  <b>Location</b>:{" "}
+                  <b>Location: </b>
                   {customImages[currentIndex]?.user?.location || "..."}
                   <br />
                 </span>
                 <span>
-                  <b>Bio</b>: {customImages[currentIndex]?.user?.bio || "..."}
+                  <b>Bio: </b>
+                  {customImages[currentIndex]?.user?.bio || "..."}
                   <br />
                 </span>
               </div>
@@ -79,8 +81,8 @@ const ImageModal = () => {
                         {index === currentIndex && (
                           <Image
                             className="image"
-                            src={image?.urls?.regular}
-                            alt={image?.description}
+                            src={image.urls.regular}
+                            alt={image.description}
                           />
                         )}
                       </div>
