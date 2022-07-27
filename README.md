@@ -13,7 +13,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 4. Completed all features in challenges.
 
-5. ### `Not too often, but sometimes, these images can't load immediately, because we're using an url field in response from API to load images, not static images in source code. So, It depends on your network (wifi), please wait a few seconds for that.`
+5. ### `Not too often, but sometimes, these images can't load immediately, because we're using an url field in API's response to load images from internetW, not static images in source code. So, It depends on your network (wifi), please wait a few seconds for that.`
 
 ## Available Scripts
 
